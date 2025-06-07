@@ -104,5 +104,7 @@ def process_chat_data(chat_df):
     
     # Calculate cumulative number of people added
     chat_df['n_added'] = (chat_df['flag'] == 'added').cumsum() - (chat_df['flag'] == 'removed').cumsum()
-    
+    chat_df['datetime'] = pd.to_datetime(chat_df['date'] + ' ' + chat_df['time'], errors='coerce')
+    chat_df['hour'] = chat_df['datetime'].dt.floor('h')
+
     return chat_df
