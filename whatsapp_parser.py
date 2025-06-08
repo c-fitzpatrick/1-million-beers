@@ -1,8 +1,11 @@
 import pandas as pd
 import re
 
+from google.cloud import storage
+import zipfile
+import io
 
-def load_whatsapp_chat(file_path):
+def load_whatsapp_chat(file_path) -> list:
     """
     Read the WhatsApp chat file into a list of lines for processing.
     
@@ -16,7 +19,26 @@ def load_whatsapp_chat(file_path):
         lines = f.readlines()
     return lines
 
+def load_whatsapp_chat_from_bucket(bucket_name, file_name) -> list:
+    """
+    Load a WhatsApp chat file from a Google Cloud Storage bucket.
+    Args:
+        bucket_name (str): Name of the Google Cloud Storage 
+        file_name (str): Name of the file in the bucket
+    Returns:
+        list: List of lines from the chat file
+    """
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(file_name)
 
+    with zipfile.ZipFile(io.BytesIO(blob.download_as_bytes())) as z:
+        file_name = z.namelist()[0]
+        with z.open(file_name) as f:
+            lines = f.readlines()
+            
+    return [line.decode('utf-8') for line in lines]
+    
 def parse_chat_lines(lines):
     """
     Extract the date, time, sender's number, and message from each line using regular expressions.
