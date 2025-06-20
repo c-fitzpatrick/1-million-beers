@@ -60,3 +60,17 @@ def plot_beer_counts(chat_df, color=None, color_discrete_sequence=None, title=No
         yaxis=dict(showgrid=False)
     )
     return fig
+
+def estimate_time_to_million_beers(data_cleaned, rate_per_hour, target=1000000):
+    """
+    Estimate the time required to reach a target number of beers from the current max.
+    Prints days, years, and estimated date to reach the target.
+    """
+    start = data_cleaned['n_beers'].max()
+    end = target
+    beers_needed = end - start
+    hours_needed = beers_needed / rate_per_hour if rate_per_hour > 0 else np.nan
+    days_needed = hours_needed / 24
+    years_needed = days_needed / 365
+    date_estimate = data_cleaned['datetime'].max() + pd.Timedelta(days=days_needed)
+    return rate_per_hour, days_needed, years_needed, date_estimate, start, target

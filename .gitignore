@@ -1,4 +1,3 @@
-*.txt
 *.zip
 __pycache__/
 venv/
