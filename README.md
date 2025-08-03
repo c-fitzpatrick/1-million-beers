@@ -8,12 +8,12 @@ Each photo should is accompanied by a message indicating the cumulative beer cou
 # Data cleaning
 The cumulative beer count results in errors propagating across multiple messages. To enable forecasting, some simple rules have been applied to clean the data.
 
-![Beer Counts with Outliers](beer_counts_with_outliers.png)
+![Beer Counts with Outliers](static/beer_counts_with_outliers.png)
 
 # Forecast Update
 This is a summary of the beer rates and forecasts for the next 10,000 beers.
 
-![Beer Counts with Linear Forecast](beer_counts_with_linear_forecast.png)
+![Beer Counts with Linear Forecast](static/beer_counts_with_linear_forecast.png)
 
 Linear Forecast Update
 Generated on: 2025-08-03 18:16:24

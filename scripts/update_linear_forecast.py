@@ -65,6 +65,9 @@ def main():
     """
     print("Starting linear forecast update...")
     
+    # Ensure static directory exists
+    os.makedirs('static', exist_ok=True)
+    
     # Get the most recent chat file
     file_path = get_most_recent_chat_file()
     
@@ -73,8 +76,8 @@ def main():
     
     # Create initial plot with outliers highlighted
     fig1 = plot_beer_counts(chat_df, color='error')
-    fig1.write_image("beer_counts_with_outliers.png", width=1200, height=800, scale=2)
-    fig1.write_html("beer_counts_with_outliers.html")
+    fig1.write_image("static/beer_counts_with_outliers.png", width=1200, height=800, scale=2)
+    fig1.write_html("static/beer_counts_with_outliers.html")
     
     # Manual outlier removal (replicating notebook cell)
     chat_df = chat_df[chat_df['datetime'] != pd.Timestamp('2025-06-14 17:43:00')]
@@ -118,8 +121,8 @@ def main():
             gridcolor='lightgray'
         )
     )
-    fig2.write_image("beer_counts_with_linear_forecast.png", width=1200, height=800, scale=2)
-    fig2.write_html("beer_counts_with_linear_forecast.html")
+    fig2.write_image("static/beer_counts_with_linear_forecast.png", width=1200, height=800, scale=2)
+    fig2.write_html("static/beer_counts_with_linear_forecast.html")
 
     # Calculate forecasts
     # Next round 10k
