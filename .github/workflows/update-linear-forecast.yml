@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
-      contents: read
+      contents: write  # Required for pushing changes
       id-token: write  # Required for Google Cloud authentication
     
     steps:
